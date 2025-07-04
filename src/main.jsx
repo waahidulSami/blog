@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import './input.css'
 import App from './App.jsx'
 import store from './store/store.js'
 import AuthLayout from './components/AuthLayout.jsx'
@@ -13,6 +13,7 @@ import EditePost from './pages/EditPost.jsx'
 import Post from './pages/Post.jsx'
 import AddPost from './pages/AddPost.jsx'
 import React from 'react'
+
 
 const router = createBrowserRouter([
   {
