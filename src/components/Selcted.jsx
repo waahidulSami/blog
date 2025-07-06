@@ -1,33 +1,43 @@
-import React , {useId} from "react";
+import React, { useId, forwardRef } from "react";
 
-function Selected({ 
-    options , 
-    label,
-    className ,
-    ...props
-}, ref ) {
-const id = useId();
+const Selected = forwardRef(function Selected(
+  { options, label, className = "", ...props },
+  ref
+) {
+  const id = useId();
 
-
-return (
+  return (
     <div className="w-full">
-        {label && <label htmlFor={id} className="text-sm font-semibold mb-2">{label}</label>}
-
-        <select
-          id={id}
-        ref={ref}
-        className={`w-full h-10 px-4 rounded-xl bg-[#dce8f3] text-[#101518] text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
-        {...props}
+      {label && (
+        <label
+          htmlFor={id}
+          className="block mb-2 text-sm font-medium text-gray-700"
         >
-            {options?.map((option) => (
-                <option  key={option} value={option}>
-                    {option}
-                </option>)
-            )}
-        </select>
+          {label}
+        </label>
+      )}
+
+      <select
+        id={id}
+        ref={ref}
+        className={`
+          w-50 h-10 px-4 rounded-lg border border-gray-500  flex justify-center items-center
+          bg-white text-gray-800 text-sm font-medium
+          transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+          hover:border-gray-400
+          disabled:opacity-50 disabled:cursor-not-allowed
+          ${className}
+        `}
+        {...props}
+      >
+        {options?.map((option) => (
+          <option key={option} value={option} className="text-sm">
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
-)
-}
+  );
+});
 
-
-export default  Selected
+export default Selected;

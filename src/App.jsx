@@ -27,7 +27,7 @@ useEffect(() =>{
   const location = useLocation();
   const hideHeaderFooter = ['/login', '/signup'].includes(location.pathname);
   return !Loading ? (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+    <div className='min-h-screen flex flex-wrap content-between'>
       <div className='w-full block'>
 
        

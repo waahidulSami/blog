@@ -27,7 +27,7 @@ function EditePost() {
     return post ? (
         <div className="py-8">
 
-        <PostFrom />
+        <PostFrom  post={post}/>
 
         </div>
     ) : null

@@ -24,14 +24,25 @@ export default function Post() {
         }
     }, [postId, navigate]);
 
-    const deletePost = () => {
-        service.deletePost(post.$id).then((status) => {
-            if (status) {
-                service.deltefile(post.featuredImage);
-                navigate('/');
-            }
-        });
-    };
+const delteall = async () => {
+    try {
+        console.log("Attempting to delete post:", post.$id);
+        await service.deletePost(post.$id); // Delete document first
+        console.log("Post deleted successfully.");
+
+        // Then try to delete image file
+        if (post.featuredImage) {
+            await service.deltefile(post.featuredImage); // No need to wait if it fails
+            console.log("Image deleted successfully.");
+        }
+
+        navigate("/"); // Redirect after delete
+    } catch (error) {
+        console.error("Error deleting post or file:", error);
+        alert("Something went wrong while deleting the post.");
+    }
+};
+
 
     // ✅ Loading state check before rendering
     if (!post) {
@@ -48,13 +59,15 @@ export default function Post() {
                 />
 
                 {isAuthor && (
-                    <div className="absolute right-6 top-6">
+                    <div className="absolute right-5 top-6 flex justify-center items-center flex-col ">
                         <Link to={`/edit-post/${post.$id}`}>
-                            <Button bgColor="bg-green-500" className="mr-3">
+                            <Button bgColor="bg-green-500" className="w-20 h-10">
                                 Edit
                             </Button>
                         </Link>
-                        <Button bgColor="bg-red-500" onClick={deletePost}>
+                        <Button 
+                         className="   bg-red-600 w-20 h-10" 
+                         onClick={delteall}>
                             Delete
                         </Button>
                     </div>
